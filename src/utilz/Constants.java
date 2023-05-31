@@ -16,6 +16,8 @@ public class Constants {
         public static final int ATTACK = 2;
         public static final int HIT = 3;
         public static final int IDLE = 4;
+        public static final int FALLING = 5;
+
 
         /**
          * Метод, що визначає скільки елементів в масиві анімацій для різних дій
@@ -29,6 +31,7 @@ public class Constants {
                 case JUMP:
                     return 6;
                 case IDLE:
+                case FALLING:
                     return 1;
                 case HIT:
                     return 4;

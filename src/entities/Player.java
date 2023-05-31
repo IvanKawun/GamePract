@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 
 import static utilz.Constants.PlayerConstants.*;
-import static utilz.HelpMethods.CanMoveHere;
+import static utilz.HelpMethods.*;
 
 
 public class Player extends Entity {
@@ -17,7 +17,7 @@ public class Player extends Entity {
     private int playerAction = IDLE;
     private boolean moving = false, attacking = false;
     private boolean left, up, right, down, jump ;
-    private float playerSpeed = 1.0f;
+    private float playerSpeed = 2.0f;
     private int[][] lvlData;
     private float xDrawOffset = 19 * Game.SCALE;
     private float yDrawOffset = 8 * Game.SCALE;
@@ -35,7 +35,8 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
-        initHitbox(x,y,22*Game.SCALE,40*Game.SCALE);
+        initHitbox(x,y,22*Game.SCALE,39*Game.SCALE);
+
     }
 
     public void update() {
@@ -48,7 +49,7 @@ public class Player extends Entity {
     public void render(Graphics g) {
         g.drawImage(animations[playerAction][aniIndex],  (int)(hitbox.x - xDrawOffset),
                 (int) (hitbox.y - yDrawOffset), width, (int)(height-(14*Game.SCALE)), null);
-        drawHitbox(g);
+        // drawHitbox(g);
     }
 
     private void updateAnimationTick() {
@@ -69,6 +70,16 @@ public class Player extends Entity {
             playerAction = RUNNING;
         else
             playerAction = IDLE;
+
+        if(inAir){
+            if(airSpeed<0)
+                playerAction = JUMP;
+            else
+                playerAction = FALLING;
+
+        }
+
+
         if (attacking)
             playerAction = ATTACK;
         if (startAni != playerAction) {
@@ -82,29 +93,63 @@ public class Player extends Entity {
     }
 
     private void updatePos() {
-
         moving = false;
-        if (!left && !right && !up && !down)
+        if(jump)
+            jump();
+        if (!left && !right && !inAir)
             return;
 
-        float xSpeed = 0, ySpeed = 0;
+        float xSpeed = 0;
 
-        if (left && !right)
-            xSpeed = -playerSpeed;
+        if (left)
+            xSpeed -= playerSpeed;
 
-        else if (right && !left)
-            xSpeed = playerSpeed;
+        if (right)
+            xSpeed += playerSpeed;
 
-        if (up && !down)
-            ySpeed = -playerSpeed;
+        if(!inAir){
+            if(!IsEntityOnFloor(hitbox,lvlData))
+                inAir = true;
+        }
 
-        else if (down && !up)
-            ySpeed = playerSpeed;
+        if(inAir){
 
-        if (CanMoveHere(hitbox.x + xSpeed, hitbox.y + ySpeed, hitbox.width, hitbox.height, lvlData)) {
+            if(CanMoveHere(hitbox.x, hitbox.y +airSpeed, hitbox.width, hitbox.height, lvlData)){
+                hitbox.y += airSpeed;
+                airSpeed+= gravity;
+                updateXPos(xSpeed);
+            } else{
+                hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
+                 if(airSpeed > 0)
+                     resetInAir();
+                 else
+                     airSpeed = fallSpeedAfterCollision;
+                 updateXPos(xSpeed);
+            }
+        }else
+            updateXPos(xSpeed);
+        moving = true;
+
+
+    }
+
+    private void jump() {
+        if(inAir)
+            return;
+        inAir = true;
+        airSpeed = jumpSpeed;
+    }
+
+    private void resetInAir() {
+        inAir = false;
+        airSpeed = 0;
+    }
+
+    private void updateXPos(float xSpeed) {
+        if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData)) {
             hitbox.x += xSpeed;
-            hitbox.y += ySpeed;
-            moving = true;
+        }else{
+            hitbox.x = GetEntityXPosNextToWall(hitbox,xSpeed);
         }
 
     }
@@ -112,8 +157,9 @@ public class Player extends Entity {
     private void loadAnimations() {
         BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
 
-        animations = new BufferedImage[5][7];
+        animations = new BufferedImage[6][7];
         animations[4][0] = img.getSubimage(0, 0, 50, 37);
+        animations[5][0] = img.getSubimage(50,111,50,37);
         /**
          * Filling the running animation
          */
@@ -146,6 +192,9 @@ public class Player extends Entity {
 
     public void loadLvlData(int[][] lvlData) {
         this.lvlData = lvlData;
+        if(!IsEntityOnFloor(hitbox, lvlData)){
+            inAir = true;
+        }
     }
 
     public void resetDirBooleans() {
@@ -189,5 +238,8 @@ public class Player extends Entity {
 
     public void setDown(boolean down) {
         this.down = down;
+    }
+    public void setJump(boolean jump) {
+        this.jump = jump;
     }
 }

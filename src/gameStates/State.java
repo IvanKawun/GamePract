@@ -4,6 +4,9 @@ import main.Game;
 
 import java.awt.event.MouseEvent;
 
+
+import main.Game;
+
 public class State {
     protected Game game;
 
@@ -16,4 +19,9 @@ public class State {
     public Game getGame(){
         return game;
     }
+
+    public Game getGame() {
+        return game;
+    }
+
 }

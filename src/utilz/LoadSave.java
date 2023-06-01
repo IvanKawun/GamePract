@@ -15,6 +15,7 @@ public class LoadSave {
     public static final String MENU_BUTTONS = "button_atlas.png";
     public static final String MENU_BACKGROUND = "menu_background.png";
 
+
     public static BufferedImage GetSpriteAtlas(String fileName){
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+ fileName);

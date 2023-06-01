@@ -2,14 +2,12 @@ package gameStates;
 import UI.MenuButton;
 import main.Game;
 import utilz.LoadSave;
-
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-public class Menu extends State implements Statemethods{
+public class Menu extends State implements StateMethods{
     private MenuButton[] buttons = new MenuButton[3];
     private BufferedImage backgroundImg;
     private int menuX, menuY, menuWidth, menuHeight;
@@ -34,37 +32,15 @@ public class Menu extends State implements Statemethods{
     }
     @Override
     public void update() {
-        for(MenuButton mb : buttons)
+        for (MenuButton mb : buttons)
             mb.update();
-
-import main.Game;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-
-public class Menu extends State implements StateMethods{
-
-    public Menu(Game game) {
-        super(game);
     }
-
-    @Override
-    public void update() {
-
-
-    }
-
     @Override
     public void draw(Graphics g) {
 
         g.drawImage(backgroundImg, menuX, menuY, menuWidth, menuHeight, null);
         for(MenuButton mb : buttons)
             mb.draw(g);
-
-        g.setColor(Color.black);
-        g.drawString("MENU", Game.GAME_WIDTH/2,200);
-
 
     }
 
@@ -82,8 +58,6 @@ public class Menu extends State implements StateMethods{
                 break;
             }
         }
-
-
     }
 
     @Override
@@ -122,9 +96,6 @@ public class Menu extends State implements StateMethods{
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_ENTER)
-            GameState.state = GameState.PLAYING;
-
-        if(e.getKeyCode() == KeyEvent.VK_ENTER)
             GameState.state = GameState.PLAYING;
 
     }

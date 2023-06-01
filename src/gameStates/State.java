@@ -20,8 +20,5 @@ public class State {
         return game;
     }
 
-    public Game getGame() {
-        return game;
-    }
 
 }

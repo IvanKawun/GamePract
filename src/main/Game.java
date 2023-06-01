@@ -1,4 +1,8 @@
 package main;
+import gameStates.GameState;
+import gameStates.Menu;
+import gameStates.Playing;
+
 
 import gameStates.GameState;
 import gameStates.Playing;
@@ -14,6 +18,8 @@ public class Game implements Runnable {
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
 
+    private Playing playing;
+    private Menu menu;
     public final static int TILES_DEFAULT_SIZE = 32;
     public final static float SCALE = 1.5f;
     public static final int TILES_IN_WIDTH = 26;
@@ -21,8 +27,11 @@ public class Game implements Runnable {
     public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
     public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
     public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
+
+
     private Playing playing;
     private Menu menu;
+ 
 
     public Game() {
         initClasses();
@@ -35,6 +44,9 @@ public class Game implements Runnable {
     }
 
     private void initClasses() {
+        menu = new Menu(this);
+        playing = new Playing(this);
+
             menu = new Menu(this);
             playing = new Playing(this);
     }
@@ -53,6 +65,11 @@ public class Game implements Runnable {
             case PLAYING:
                 playing.update();
                 break;
+            case OPTIONS:
+            case QUIT:
+            default:
+                System.exit(0);
+
             default:
                 break;
         }
@@ -116,6 +133,12 @@ public class Game implements Runnable {
         if(GameState.state == GameState.PLAYING)
             playing.getPlayer().resetDirBooleans();
     }
+    public Menu getMenu(){
+        return menu;
+    }
+    public Playing getPlaying(){
+        return playing;
+
     public Menu getMenu() {
         return menu;
     }

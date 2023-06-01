@@ -11,10 +11,7 @@ public class KeyboardInputs implements KeyListener {
 
     public KeyboardInputs(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
-
-
     }
-
 
     @Override
     public void keyTyped(KeyEvent e) {

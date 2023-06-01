@@ -28,11 +28,6 @@ public class Game implements Runnable {
     public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
     public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
-
-    private Playing playing;
-    private Menu menu;
- 
-
     public Game() {
         initClasses();
 
@@ -47,8 +42,8 @@ public class Game implements Runnable {
         menu = new Menu(this);
         playing = new Playing(this);
 
-            menu = new Menu(this);
-            playing = new Playing(this);
+        menu = new Menu(this);
+        playing = new Playing(this);
     }
 
 
@@ -58,7 +53,7 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        switch (GameState.state){
+        switch (GameState.state) {
             case MENU:
                 menu.update();
                 break;
@@ -69,15 +64,13 @@ public class Game implements Runnable {
             case QUIT:
             default:
                 System.exit(0);
-
-            default:
                 break;
         }
     }
 
     public void render(Graphics g) {
 
-        switch (GameState.state){
+        switch (GameState.state) {
             case MENU:
                 menu.draw(g);
                 break;
@@ -130,20 +123,15 @@ public class Game implements Runnable {
     }
 
     public void windowFocusLost() {
-        if(GameState.state == GameState.PLAYING)
+        if (GameState.state == GameState.PLAYING)
             playing.getPlayer().resetDirBooleans();
     }
-    public Menu getMenu(){
-        return menu;
-    }
-    public Playing getPlaying(){
-        return playing;
 
     public Menu getMenu() {
         return menu;
     }
-    public Playing getPlaying(){
+
+    public Playing getPlaying() {
         return playing;
     }
-
 }

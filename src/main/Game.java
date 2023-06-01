@@ -4,6 +4,11 @@ import gameStates.Menu;
 import gameStates.Playing;
 
 
+import gameStates.GameState;
+import gameStates.Playing;
+import gameStates.Menu;
+
+
 import java.awt.*;
 
 public class Game implements Runnable {
@@ -24,6 +29,10 @@ public class Game implements Runnable {
     public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
 
+    private Playing playing;
+    private Menu menu;
+ 
+
     public Game() {
         initClasses();
 
@@ -37,6 +46,9 @@ public class Game implements Runnable {
     private void initClasses() {
         menu = new Menu(this);
         playing = new Playing(this);
+
+            menu = new Menu(this);
+            playing = new Playing(this);
     }
 
 
@@ -57,11 +69,14 @@ public class Game implements Runnable {
             case QUIT:
             default:
                 System.exit(0);
+
+            default:
                 break;
         }
     }
 
     public void render(Graphics g) {
+
         switch (GameState.state){
             case MENU:
                 menu.draw(g);
@@ -123,5 +138,12 @@ public class Game implements Runnable {
     }
     public Playing getPlaying(){
         return playing;
+
+    public Menu getMenu() {
+        return menu;
     }
+    public Playing getPlaying(){
+        return playing;
+    }
+
 }

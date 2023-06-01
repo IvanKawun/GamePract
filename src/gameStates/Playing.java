@@ -7,6 +7,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class Playing extends State implements Statemethods{
+
+import entities.Player;
+import levels.LevelManager;
+import main.Game;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
+public class Playing extends State implements StateMethods{
     private LevelManager levelManager;
     private Player player;
 
@@ -20,6 +30,18 @@ public class Playing extends State implements Statemethods{
         player = new Player(200, 200,(int) (64*Game.SCALE), (int) (64*Game.SCALE));
         player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
 
+
+    private void initClasses() {
+        levelManager = new LevelManager(game);
+        player = new Player(200, 200,(int) (64*Game.SCALE), (int) (64*Game.SCALE));
+        player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
+    }
+    public void windowFocusLost() {
+        player.resetDirBooleans();
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     @Override
@@ -32,12 +54,14 @@ public class Playing extends State implements Statemethods{
     public void draw(Graphics g) {
         levelManager.draw(g);
         player.render(g);
+
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getButton() == MouseEvent.BUTTON1)
             player.setAttacking(true);
+
     }
 
     @Override
@@ -67,6 +91,10 @@ public class Playing extends State implements Statemethods{
             case KeyEvent.VK_S:
                 player.setDown(true);
                 break;
+
+            case KeyEvent.VK_A:
+                player.setLeft(true);
+                break;
             case KeyEvent.VK_D:
                 player.setRight(true);
                 break;
@@ -89,6 +117,16 @@ public class Playing extends State implements Statemethods{
             case KeyEvent.VK_S:
                 player.setDown(false);
                 break;
+
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        switch(e.getKeyCode()){
+            case KeyEvent.VK_A:
+                player.setLeft(false);
+                break;
             case KeyEvent.VK_D:
                 player.setRight(false);
                 break;
@@ -105,3 +143,9 @@ public class Playing extends State implements Statemethods{
         return player;
     }
 }
+
+
+    }
+
+    }
+

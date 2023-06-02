@@ -1,15 +1,10 @@
 package gameStates;
 import UI.MenuButton;
 import main.Game;
-
 import java.awt.event.MouseEvent;
-
-
 import main.Game;
-
 public class State {
     protected Game game;
-
     public State(Game game){
         this.game = game;
     }

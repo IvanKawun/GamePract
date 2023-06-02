@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class Playing extends State implements StateMethods{
+public class Playing extends State implements Statemethods{
     private LevelManager levelManager;
     private Player player;
     private PauseOverlay pauseOverlay;

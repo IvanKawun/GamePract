@@ -2,13 +2,9 @@ package main;
 import gameStates.GameState;
 import gameStates.Menu;
 import gameStates.Playing;
-
-
 import gameStates.GameState;
 import gameStates.Playing;
 import gameStates.Menu;
-
-
 import java.awt.*;
 
 public class Game implements Runnable {
@@ -30,22 +26,18 @@ public class Game implements Runnable {
 
     public Game() {
         initClasses();
-
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus();
-
         startGameLoop();
     }
 
     private void initClasses() {
         menu = new Menu(this);
         playing = new Playing(this);
-
         menu = new Menu(this);
         playing = new Playing(this);
     }
-
 
     private void startGameLoop() {
         gameThread = new Thread(this);
@@ -69,7 +61,6 @@ public class Game implements Runnable {
     }
 
     public void render(Graphics g) {
-
         switch (GameState.state) {
             case MENU:
                 menu.draw(g);
@@ -86,19 +77,14 @@ public class Game implements Runnable {
     public void run() {
         double timePerFrame = 1000000000.0 / FPS_SET;
         double tiePerUpdate = 1000000000.0 / UPS_SET;
-
         long previousTime = System.nanoTime();
-
         int frames = 0;
         int updates = 0;
         long lastCheck = System.currentTimeMillis();
-
         double deltaU = 0;
         double deltaF = 0;
-
         while (true) {
             long currentTime = System.nanoTime();
-
             deltaU += (currentTime - previousTime) / tiePerUpdate;
             deltaF += (currentTime - previousTime) / timePerFrame;
             previousTime = currentTime;
@@ -112,7 +98,6 @@ public class Game implements Runnable {
                 frames++;
                 deltaF--;
             }
-
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
                 System.out.println("FPS :" + frames + " UPS " + updates);

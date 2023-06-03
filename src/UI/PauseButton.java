@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class PauseButton {
     protected int x, y, width, height;
-    private Rectangle bounds;
+    public Rectangle bounds;
 
     public PauseButton(int x, int y, int width, int height){
         this.x=x;

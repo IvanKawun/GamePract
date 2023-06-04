@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-public class Menu extends State implements StateMethods{
+public class Menu extends State implements Statemethods{
     private MenuButton[] buttons = new MenuButton[3];
     private BufferedImage backgroundImg, backgroundImgPink;
     private int menuX, menuY, menuWidth, menuHeight;

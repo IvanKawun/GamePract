@@ -23,22 +23,22 @@ public class EnemyManager {
 
     private void addEnemies() {
         skeletons = LoadSave.GetSkeletons();
-        System.out.println("Size of skeletons =" + skeletons.size());
     }
 
-    public void update(){
+    public void update(int [][] lvlData,Player player){
         for(Skeleton c:skeletons)
-            c.update();
+            c.update(lvlData,player);
     }
     public void draw(Graphics g, int xLvlOffset){
         drawSkeletons(g, xLvlOffset);
     }
 
-    private void drawSkeletons(Graphics g, int xLvlOffest) {
+    private void drawSkeletons(Graphics g, int xLvlOffset) {
         for(Skeleton c: skeletons){
-            g.drawImage(skeletonArr[c.getEnemyState()][c.getAniIndex()],(int)c.getHitbox().x- xLvlOffest,
-                    (int)c.getHitbox().y,
+            g.drawImage(skeletonArr[c.getEnemyState()][c.getAniIndex()],(int)c.getHitbox().x- xLvlOffset - SKELETON_DRAWOFFSET_X,
+                    (int)c.getHitbox().y - SKELETON_DRAWOFFSET_Y,
                     SKELETON_WIDTH,SKELETON_HEIGHT,null);
+            //c.drawHitbox(g,xLvlOffset);
         }
     }
 

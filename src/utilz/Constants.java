@@ -12,10 +12,13 @@ public class Constants {
         public final static int HIT = 3;
         public final static int DEAD = 4;
 
-        public static final int SKELETON_WIDTH_DEFAULT = 160;
-        public static final int SKELETON_HEIGHT_DEFAULT = 51;
+        public static final int SKELETON_WIDTH_DEFAULT = 150;
+        public static final int SKELETON_HEIGHT_DEFAULT = 53;
         public static final int SKELETON_WIDTH = (int)(SKELETON_WIDTH_DEFAULT * Game.SCALE);
         public static final int SKELETON_HEIGHT = (int)(SKELETON_HEIGHT_DEFAULT*Game.SCALE);
+
+        public static final int SKELETON_DRAWOFFSET_X = (int)(66*Game.SCALE);
+        public static final int SKELETON_DRAWOFFSET_Y = (int)(Game.SCALE);
 
         public static int GetSpriteAmount(int enemy_type, int enemy_state){
             switch (enemy_type){

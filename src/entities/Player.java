@@ -35,7 +35,7 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
-        initHitbox(x,y,22*Game.SCALE,39*Game.SCALE);
+        initHitbox(x,y,(int)(22*Game.SCALE),(int)(39*Game.SCALE));
 
     }
 
@@ -49,7 +49,7 @@ public class Player extends Entity {
     public void render(Graphics g, int lvlOffset) {
         g.drawImage(animations[playerAction][aniIndex],  (int)(hitbox.x - xDrawOffset) - lvlOffset,
                 (int) (hitbox.y - yDrawOffset), width, (int)(height-(14*Game.SCALE)), null);
-        // drawHitbox(g);
+        drawHitbox(g);
     }
 
     private void updateAnimationTick() {

@@ -3,6 +3,37 @@ package utilz;
 import main.Game;
 
 public class Constants {
+    public static class EnemyConstants{
+        public final static int SKELETON = 0;
+
+        public final static int IDLE = 0;
+        public final static int RUNNING = 1;
+        public final static int ATTACK = 2;
+        public final static int HIT = 3;
+        public final static int DEAD = 4;
+
+        public static final int SKELETON_WIDTH_DEFAULT = 160;
+        public static final int SKELETON_HEIGHT_DEFAULT = 51;
+        public static final int SKELETON_WIDTH = (int)(SKELETON_WIDTH_DEFAULT * Game.SCALE);
+        public static final int SKELETON_HEIGHT = (int)(SKELETON_HEIGHT_DEFAULT*Game.SCALE);
+
+        public static int GetSpriteAmount(int enemy_type, int enemy_state){
+            switch (enemy_type){
+                case SKELETON:
+                    switch (enemy_state){
+                        case IDLE:
+                        case RUNNING:
+                        case HIT:
+                        case DEAD:
+                            return 4;
+                        case ATTACK:
+                            return 8;
+                    }
+                    break;
+            }
+            return 0;
+        }
+    }
     public static class Environment{
         public static final int BIG_CLOUD_WIDTH_DEFAULT = 448;
         public static final int BIG_CLOUD_HEIGHT_DEFAULT = 101;

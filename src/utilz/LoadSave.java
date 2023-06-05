@@ -1,10 +1,16 @@
 package utilz;
 
+import entities.Skeleton;
+import main.Game;
+
+import static utilz.Constants.EnemyConstants.SKELETON;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class LoadSave {
     public static final String PLAYER_ATLAS = "player_sprites.png";
@@ -20,7 +26,7 @@ public class LoadSave {
     public static final String PLAYING_BG_IMG = "playing_bg_img.png";
     public static final String BIG_CLOUDS = "big_clouds.png";
     public static final String SMALL_CLOUDS = "small_clouds.png";
-
+    public static final String SKELETON_SPRITES = "skeleton_sprites.png";
     public static BufferedImage GetSpriteAtlas(String fileName){
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+ fileName);
@@ -36,6 +42,21 @@ public class LoadSave {
             }
         }
         return img;
+    }
+
+    public static ArrayList<Skeleton> GetSkeletons(){
+        BufferedImage img = GetSpriteAtlas(LEVEL_ONE_DATA);
+        ArrayList<Skeleton> list = new ArrayList<>();
+
+        for(int j = 0; j<img.getHeight(); j++){
+            for(int i = 0; i<img.getWidth(); i++){
+                Color color = new Color(img.getRGB(i,j));
+                int value = color.getGreen();
+                if(value == SKELETON)
+                    list.add(new Skeleton(i* Game.TILES_SIZE, j*Game.TILES_SIZE));
+            }
+        }
+        return list;
     }
 
     public static int[][] GetLevelData(){

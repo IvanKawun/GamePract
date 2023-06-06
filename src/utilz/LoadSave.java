@@ -28,6 +28,8 @@ public class LoadSave {
     public static final String SMALL_CLOUDS = "small_clouds.png";
     public static final String OPTIONS_MENU = "options_background.png";
     public static final String SKELETON_SPRITES = "skeleton_sprites.png";
+    public static final String STATUS_BAR = "health_mana_bar.png";
+
 
     public static BufferedImage GetSpriteAtlas(String fileName){
         BufferedImage img = null;

@@ -4,8 +4,8 @@ import gameStates.Playing;
 import utilz.LoadSave;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import static utilz.Constants.EnemyConstants.*;
@@ -27,6 +27,7 @@ public class EnemyManager {
 
     public void update(int [][] lvlData,Player player){
         for(Skeleton c:skeletons)
+            if(c.isActive())
             c.update(lvlData,player);
     }
     public void draw(Graphics g, int xLvlOffset){
@@ -34,14 +35,28 @@ public class EnemyManager {
     }
 
     private void drawSkeletons(Graphics g, int xLvlOffset) {
-        for(Skeleton c: skeletons){
-            g.drawImage(skeletonArr[c.getEnemyState()][c.getAniIndex()],(int)c.getHitbox().x- xLvlOffset - SKELETON_DRAWOFFSET_X,
-                    (int)c.getHitbox().y - SKELETON_DRAWOFFSET_Y,
-                    SKELETON_WIDTH,SKELETON_HEIGHT,null);
-            //c.drawHitbox(g,xLvlOffset);
+        for(Skeleton c: skeletons) {
+            if (c.isActive()) {
+
+                g.drawImage(skeletonArr[c.getEnemyState()][c.getAniIndex()],
+                        (int) c.getHitbox().x - xLvlOffset - SKELETON_DRAWOFFSET_X + c.flipX(),
+                        (int) c.getHitbox().y - SKELETON_DRAWOFFSET_Y,
+                        SKELETON_WIDTH * c.flipW(), SKELETON_HEIGHT, null);
+                //c.drawHitbox(g,xLvlOffset);
+                c.drawAttackBox(g, xLvlOffset);
+            }
         }
     }
+    public void checkEnemyHit(Rectangle2D.Float attackBox){
+        for(Skeleton c : skeletons){
+            if(c.isActive())
+            if (attackBox.intersects(c.getHitbox())){
+                c.hurt(10);
+                return;
+            }
+        }
 
+    }
     public void loadEnemyImgs(){
         skeletonArr = new BufferedImage[5][8];
         BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SKELETON_SPRITES);
@@ -52,4 +67,9 @@ public class EnemyManager {
             }
         }
     }
+    public void resetAllEnemies() {
+        for(Skeleton c: skeletons)
+            c.resetEnemy();
+    }
+
 }

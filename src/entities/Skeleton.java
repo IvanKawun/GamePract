@@ -11,12 +11,11 @@ public class Skeleton extends Enemy{
     /**
      * Хітбокс атаки
      */
-    private Rectangle2D.Float attackBox;
     private int attackBoxOffsetX;
 
     public Skeleton(float x, float y) {
         super(x, y, SKELETON_WIDTH, SKELETON_HEIGHT, SKELETON);
-        initHitbox(x,y,(int)(28* Game.SCALE),(int)(52*Game.SCALE));
+        initHitbox(28,52);
         initAttackBox();
     }
     private void initAttackBox(){
@@ -44,7 +43,7 @@ public class Skeleton extends Enemy{
         if (inAir)
             updateInAir(lvlData);
          else {
-            switch (enemyState){
+            switch (state){
                 case IDLE:
                     newState(RUNNING);
                     break;
@@ -68,10 +67,6 @@ public class Skeleton extends Enemy{
                     break;
             }
         }
-    }
-    public void drawAttackBox(Graphics g, int xLvlOffset){
-        g.setColor(Color.red);
-        g.drawRect((int)attackBox.x - xLvlOffset, (int)attackBox.y, (int)attackBox.width, (int)attackBox.height);
     }
     public int flipX(){
         if(walkDir == LEFT)

@@ -171,8 +171,6 @@ public class Playing extends State implements Statemethods{
         if(!gameOver) {
             if (paused)
                 pauseOverlay.mousePressed(e);
-        }else
-            gameOverOverlay.mousePressed(e);
             else if (levelCompleted)
                 levelCompletedOverlay.mousePressed(e);
 
@@ -184,11 +182,9 @@ public class Playing extends State implements Statemethods{
         if(!gameOver) {
             if (paused)
                 pauseOverlay.mouseReleased(e);
-        }else
-            gameOverOverlay.mouseReleased(e);
             else if (levelCompleted)
                 levelCompletedOverlay.mouseReleased(e);
-    }
+        }
     }
 
     @Override
@@ -196,8 +192,6 @@ public class Playing extends State implements Statemethods{
         if(!gameOver) {
             if (paused)
                 pauseOverlay.mouseMoved(e);
-        }else
-            gameOverOverlay.mouseMoved(e);
             else if (levelCompleted)
                 levelCompletedOverlay.mouseMoved(e);
         }

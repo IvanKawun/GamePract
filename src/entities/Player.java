@@ -93,10 +93,17 @@ public class Player extends Entity {
         updateAttackBox();
 
         updatePos();
+        if(moving){
+            checkSpikesTouched();
+        }
         if(attacking)
             checkAttack();
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void checkSpikesTouched() {
+        playing.checkSpikesTouched(this);
     }
 
     private void checkAttack() {
@@ -261,6 +268,10 @@ public class Player extends Entity {
         }
     }
 
+    public void kill() {
+        currentHealth = 0;
+    }
+
     private void loadAnimations() {
         BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
 
@@ -321,6 +332,9 @@ public class Player extends Entity {
         left = false;
         right = false;
     }
+    public void changePower(int value) {
+        System.out.println("Added power!");
+    }
 
     public void setAttacking(boolean attacking) {
         this.attacking = attacking;
@@ -358,4 +372,5 @@ public class Player extends Entity {
         if(!IsEntityOnFloor(hitbox,lvlData))
             inAir = true;
     }
+
 }

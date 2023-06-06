@@ -57,6 +57,6 @@ public class Level {
         return skeletons;
     }
     public Point getPlayerSpawn(){
-        return getPlayerSpawn();
+        return playerSpawn;
     }
 }

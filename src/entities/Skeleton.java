@@ -1,21 +1,44 @@
 package entities;
 import main.Game;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
 import static utilz.Constants.Directions.LEFT;
-import static utilz.Constants.Directions.RIGHT;
 import static utilz.Constants.EnemyConstants.*;
-import static utilz.HelpMethods.*;
 
 public class Skeleton extends Enemy{
+    /**
+     * Хітбокс атаки
+     */
+    private Rectangle2D.Float attackBox;
+    private int attackBoxOffsetX;
+
     public Skeleton(float x, float y) {
         super(x, y, SKELETON_WIDTH, SKELETON_HEIGHT, SKELETON);
         initHitbox(x,y,(int)(28* Game.SCALE),(int)(52*Game.SCALE));
+        initAttackBox();
+    }
+    private void initAttackBox(){
+        attackBox = new Rectangle2D.Float(x,y,(int)(40*Game.SCALE),(int)(52*Game.SCALE));
+        attackBoxOffsetX = (int)(Game.SCALE*30);
     }
     public void update(int [][] lvlData,Player player){
-        updateMove(lvlData,player);
+        updateBehavior(lvlData,player);
         updateAnimationTick();
+        updateAttackBox();
     }
-    private void updateMove(int [][] lvlData, Player player) {
+
+    private void updateAttackBox(){
+        if(walkDir == LEFT) {
+            attackBox.x = hitbox.x - attackBoxOffsetX - (int)(Game.SCALE*10);
+        }
+        else{
+            attackBox.x = hitbox.x + attackBoxOffsetX - (int)(Game.SCALE*10);
+        }
+        attackBox.y = hitbox.y;
+    }
+    private void updateBehavior(int [][] lvlData, Player player) {
         if (firstUpdate)
             firstUpdateCheck(lvlData);
         if (inAir)
@@ -32,7 +55,32 @@ public class Skeleton extends Enemy{
                         newState(ATTACK);
                     move(lvlData);
                     break;
+                case ATTACK:
+                    if(aniIndex == 0)
+                        attackChecked = false;
+
+                    if(aniIndex == 6 && !attackChecked)
+                        checkEnemyHit(attackBox,player);
+                    break;
+                case HIT:
+
+                    break;
             }
         }
+    }
+    public void drawAttackBox(Graphics g, int xLvlOffset){
+        g.setColor(Color.red);
+        g.drawRect((int)attackBox.x - xLvlOffset, (int)attackBox.y, (int)attackBox.width, (int)attackBox.height);
+    }
+    public int flipX(){
+        if(walkDir == LEFT)
+            return width;
+        else return 0;
+    }
+    public int flipW(){
+        if(walkDir == LEFT)
+            return -1;
+        else return 1;
+
     }
 }

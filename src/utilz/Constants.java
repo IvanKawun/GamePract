@@ -36,6 +36,20 @@ public class Constants {
             }
             return 0;
         }
+        public static int GetMaxHealth(int enemy_type){
+            switch(enemy_type){
+                case SKELETON:
+                    return 10;
+                default: return 1;
+            }
+        }
+        public static int GetEnemyDmg(int enemy_type){
+            switch(enemy_type){
+                case SKELETON:
+                    return 15;
+                default: return 0;
+            }
+        }
     }
     public static class Environment{
         public static final int BIG_CLOUD_WIDTH_DEFAULT = 448;
@@ -86,9 +100,11 @@ public class Constants {
         public static final int RUNNING = 0;
         public static final int JUMP  = 1;
         public static final int ATTACK = 2;
-        public static final int HIT = 3;
+        public static final int DEAD = 3;
         public static final int IDLE = 4;
         public static final int FALLING = 5;
+        public static final int HIT = 6;
+
 
 
         /**
@@ -105,6 +121,7 @@ public class Constants {
                 case IDLE:
                 case FALLING:
                     return 1;
+                case DEAD:
                 case HIT:
                     return 4;
                 default:

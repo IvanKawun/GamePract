@@ -17,12 +17,20 @@ public class LevelManager {
     private int lvlIndex = 0;
     public LevelManager(Game game){
         this.game = game;
-        importOutsideSprites();
+        importOutsideSprites(LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS));
         levels = new ArrayList<>();
         buildAllLevels();
     }
     public void loadNextLevel(){
         lvlIndex++;
+        /*
+        if(lvlIndex == 0){
+            importOutsideSprites(LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS));
+        }
+        if(lvlIndex == 1){
+            importOutsideSprites(LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS_2));
+        }
+        */
         if(lvlIndex >= levels.size()){
             lvlIndex = 0;
             System.out.println("No more levels! Game Completed");
@@ -34,15 +42,13 @@ public class LevelManager {
         game.getPlaying().getPlayer().loadLvlData(newLevel.getLvlData());
         game.getPlaying().setMaxLvlOffset(newLevel.getLvlOffset());
     }
-
     private void buildAllLevels() {
         BufferedImage[] allLevels = LoadSave.getAllLevels();
         for(BufferedImage img: allLevels)
             levels.add(new Level(img));
     }
 
-    private void importOutsideSprites() {
-        BufferedImage img =  LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS);
+    private void importOutsideSprites(BufferedImage img) {
         levelSprite = new BufferedImage[48];
         for(int j = 0; j<4; j++){
             for(int i =0; i<12; i++){
@@ -69,5 +75,6 @@ public class LevelManager {
     public int getAmountOfLevels(){
         return levels.size();
     }
-    public int getLvlIndex(){return  lvlIndex;}
+    public int getLvlIndex(){return lvlIndex;}
+
 }

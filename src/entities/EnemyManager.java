@@ -44,7 +44,7 @@ public class EnemyManager {
         for (Skeleton c : skeletons) {
             if (c.isActive()) {
 
-                g.drawImage(skeletonArr[c.getEnemyState()][c.getAniIndex()],
+                g.drawImage(skeletonArr[c.getState()][c.getAniIndex()],
                         (int) c.getHitbox().x - xLvlOffset - SKELETON_DRAWOFFSET_X + c.flipX(),
                         (int) c.getHitbox().y - SKELETON_DRAWOFFSET_Y,
                         SKELETON_WIDTH * c.flipW(), SKELETON_HEIGHT, null);

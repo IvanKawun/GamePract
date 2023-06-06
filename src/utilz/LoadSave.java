@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class LoadSave {
     public static final String PLAYER_ATLAS = "player_sprites.png";
     public static final String LEVEL_ATLAS = "outside_sprites.png";
+    public static final String LEVEL_ATLAS_2 = "outside_sprites2.png";
     public static final String MENU_BUTTONS = "button_atlas.png";
     public static final String MENU_BACKGROUND = "menu_background.png";//дошка меню
     public static final String PAUSE_BACKGROUND = "pause_menu.png";
@@ -26,6 +27,7 @@ public class LoadSave {
     public static final String VOLUME_BUTTONS = "volume_buttons.png";
     public static final String MENU_BACKGROUND_IMAGE = "background_menu.png";//фон для дошки меню
     public static final String PLAYING_BG_IMG = "playing_bg_img.png";
+    public static final String PLAYING_BG_IMG2 = "playing_bg_img2.png";
     public static final String BIG_CLOUDS = "big_clouds.png";
     public static final String SMALL_CLOUDS = "small_clouds.png";
     public static final String OPTIONS_MENU = "options_background.png";

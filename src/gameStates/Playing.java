@@ -39,7 +39,6 @@ public class Playing extends State implements Statemethods{
     public Playing(Game game) {
         super(game);
         initClasses();
-
         backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG);
         bigCloud = LoadSave.GetSpriteAtlas(LoadSave.BIG_CLOUDS);
         smallCloud = LoadSave.GetSpriteAtlas(LoadSave.SMALL_CLOUDS);
@@ -53,6 +52,9 @@ public class Playing extends State implements Statemethods{
     }
     public void loadNextLevel(){
         resetAll();
+        if(levelManager.getLvlIndex() == 2){
+            this.backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG2);
+        }
         levelManager.loadNextLevel();
         player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
     }

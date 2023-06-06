@@ -175,7 +175,8 @@ public class Playing extends State implements Statemethods{
                 pauseOverlay.mousePressed(e);
             else if (levelCompleted)
                 levelCompletedOverlay.mousePressed(e);
-
+        }else{
+            gameOverOverlay.mousePressed(e);
         }
     }
 
@@ -186,6 +187,8 @@ public class Playing extends State implements Statemethods{
                 pauseOverlay.mouseReleased(e);
             else if (levelCompleted)
                 levelCompletedOverlay.mouseReleased(e);
+        }else{
+            gameOverOverlay.mouseReleased(e);
         }
     }
 
@@ -196,6 +199,8 @@ public class Playing extends State implements Statemethods{
                 pauseOverlay.mouseMoved(e);
             else if (levelCompleted)
                 levelCompletedOverlay.mouseMoved(e);
+        }else{
+            gameOverOverlay.mouseMoved(e);
         }
     }
     @Override
@@ -244,6 +249,9 @@ public class Playing extends State implements Statemethods{
     public void windowFocusLost() {
         player.resetDirBooleans();
     }
+    public LevelManager getLevelManager() {
+        return levelManager;
+    }
 
     public Player getPlayer() {
         return player;
@@ -256,5 +264,7 @@ public class Playing extends State implements Statemethods{
     }
     public void setLevelCompleted(boolean levelCompleted){
         this.levelCompleted = levelCompleted;
+        if(levelCompleted)
+            game.getAudioPlayer().lvlCompleted();
     }
 }

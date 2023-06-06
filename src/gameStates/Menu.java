@@ -1,5 +1,6 @@
 package gameStates;
 import UI.MenuButton;
+import audio.AudioPlayer;
 import main.Game;
 import utilz.LoadSave;
 import java.awt.*;
@@ -67,6 +68,8 @@ public class Menu extends State implements Statemethods{
             if(isIn(e,mb)){
                 if(mb.isMousePressed())
                     mb.applyGamestate();
+                if(mb.getState() == GameState.PLAYING)
+                    game.getAudioPlayer().setLevelSong(AudioPlayer.LEVEL_2);
                 break;
             }
         }

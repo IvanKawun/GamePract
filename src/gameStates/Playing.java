@@ -24,7 +24,6 @@ public class Playing extends State implements Statemethods{
     private LevelCompletedOverlay levelCompletedOverlay;
     private boolean paused = false;
     private int xLvlOffset;
-    public int ogogo;
     private int leftBorder = (int)(0.2 * Game.GAME_WIDTH);
     private int rightBorder = (int)(0.8 * Game.GAME_WIDTH);
     private int maxLvlOffsetX;
@@ -89,8 +88,13 @@ public class Playing extends State implements Statemethods{
             player.update();
             enemyManager.update(levelManager.getCurrentLevel().getLvlData(),player);
             checkCloseToBorder();
+
+        }else if(paused){
+            pauseOverlay.update();
+        } else if(gameOver)
+            gameOverOverlay.update();
+
         }
-    }
 
     private void checkCloseToBorder() {
         int playerX = (int)(player.getHitbox().x);
@@ -167,6 +171,8 @@ public class Playing extends State implements Statemethods{
         if(!gameOver) {
             if (paused)
                 pauseOverlay.mousePressed(e);
+        }else
+            gameOverOverlay.mousePressed(e);
             else if (levelCompleted)
                 levelCompletedOverlay.mousePressed(e);
 
@@ -178,9 +184,11 @@ public class Playing extends State implements Statemethods{
         if(!gameOver) {
             if (paused)
                 pauseOverlay.mouseReleased(e);
+        }else
+            gameOverOverlay.mouseReleased(e);
             else if (levelCompleted)
                 levelCompletedOverlay.mouseReleased(e);
-        }
+    }
     }
 
     @Override
@@ -188,6 +196,8 @@ public class Playing extends State implements Statemethods{
         if(!gameOver) {
             if (paused)
                 pauseOverlay.mouseMoved(e);
+        }else
+            gameOverOverlay.mouseMoved(e);
             else if (levelCompleted)
                 levelCompletedOverlay.mouseMoved(e);
         }

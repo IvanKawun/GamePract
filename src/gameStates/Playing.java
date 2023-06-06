@@ -247,6 +247,9 @@ public class Playing extends State implements Statemethods{
     public void windowFocusLost() {
         player.resetDirBooleans();
     }
+    public LevelManager getLevelManager() {
+        return levelManager;
+    }
 
     public Player getPlayer() {
         return player;
@@ -259,5 +262,7 @@ public class Playing extends State implements Statemethods{
     }
     public void setLevelCompleted(boolean levelCompleted){
         this.levelCompleted = levelCompleted;
+        if(levelCompleted)
+            game.getAudioPlayer().lvlCompleted();
     }
 }

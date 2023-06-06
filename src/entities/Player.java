@@ -88,7 +88,10 @@ public class Player extends Entity {
         updateHealthBar();
 
         if(currentHealth <= 0) {
+            playing.getGame().getAudioPlayer().playEffect(AudioPlayer.DIE);
             playing.setGameOver(true);
+            playing.getGame().getAudioPlayer().stopSong();
+            playing.getGame().getAudioPlayer().playEffect(AudioPlayer.GAMEOVER);
             return;
         }
         updateHealthBar();

@@ -77,7 +77,9 @@ public class GameOverOverlay {
                 GameState.state = GameState.MENU;
             }
         } else if (isIn(play, e))
-            if(play.isMousePressed()){}
+            if(play.isMousePressed()){
+                playing.resetAll();
+            }
             menu.resetBools();
             play.resetBools();
         }

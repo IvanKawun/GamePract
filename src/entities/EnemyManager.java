@@ -49,7 +49,7 @@ public class EnemyManager {
                         (int) c.getHitbox().y - SKELETON_DRAWOFFSET_Y,
                         SKELETON_WIDTH * c.flipW(), SKELETON_HEIGHT, null);
                 //c.drawHitbox(g,xLvlOffset);
-                c.drawAttackBox(g, xLvlOffset);
+                //c.drawAttackBox(g, xLvlOffset);
             }
         }
     }

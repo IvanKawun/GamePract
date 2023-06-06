@@ -1,6 +1,7 @@
 package entities;
 
 import gameStates.Playing;
+import levels.Level;
 import utilz.LoadSave;
 
 import java.awt.*;
@@ -12,30 +13,35 @@ import static utilz.Constants.EnemyConstants.*;
 
 public class EnemyManager {
     private Playing playing;
-    private BufferedImage[] []skeletonArr;
+    private BufferedImage[][] skeletonArr;
     private ArrayList<Skeleton> skeletons = new ArrayList<>();
 
-    public EnemyManager(Playing playing){
-    this.playing = playing;
-    loadEnemyImgs();
-    addEnemies();
+    public EnemyManager(Playing playing) {
+        this.playing = playing;
+        loadEnemyImgs();
     }
 
-    private void addEnemies() {
-        skeletons = LoadSave.GetSkeletons();
+    public void loadEnemies(Level level) {
+        skeletons = level.getSkeletons();
     }
 
-    public void update(int [][] lvlData,Player player){
-        for(Skeleton c:skeletons)
-            if(c.isActive())
-            c.update(lvlData,player);
+    public void update(int[][] lvlData, Player player) {
+        boolean isAnyActive = false;
+        for (Skeleton c : skeletons)
+            if (c.isActive()) {
+                c.update(lvlData, player);
+                isAnyActive= true;
+            }
+        if(!isAnyActive)
+            playing.setLevelCompleted(true);
     }
-    public void draw(Graphics g, int xLvlOffset){
+
+    public void draw(Graphics g, int xLvlOffset) {
         drawSkeletons(g, xLvlOffset);
     }
 
     private void drawSkeletons(Graphics g, int xLvlOffset) {
-        for(Skeleton c: skeletons) {
+        for (Skeleton c : skeletons) {
             if (c.isActive()) {
 
                 g.drawImage(skeletonArr[c.getEnemyState()][c.getAniIndex()],
@@ -47,28 +53,31 @@ public class EnemyManager {
             }
         }
     }
-    public void checkEnemyHit(Rectangle2D.Float attackBox){
-        for(Skeleton c : skeletons){
-            if(c.isActive())
-            if (attackBox.intersects(c.getHitbox())){
-                c.hurt(10);
-                return;
-            }
+
+    public void checkEnemyHit(Rectangle2D.Float attackBox) {
+        for (Skeleton c : skeletons) {
+            if (c.isActive())
+                if (attackBox.intersects(c.getHitbox())) {
+                    c.hurt(10);
+                    return;
+                }
         }
 
     }
-    public void loadEnemyImgs(){
+
+    public void loadEnemyImgs() {
         skeletonArr = new BufferedImage[5][8];
         BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SKELETON_SPRITES);
-        for(int j = 0; j<skeletonArr.length; j++){
-            for(int i =0; i<skeletonArr[j].length; i++){
-                skeletonArr[j][i] = temp.getSubimage(i*SKELETON_WIDTH_DEFAULT, j*SKELETON_HEIGHT_DEFAULT,
-                        SKELETON_WIDTH_DEFAULT,SKELETON_HEIGHT_DEFAULT);
+        for (int j = 0; j < skeletonArr.length; j++) {
+            for (int i = 0; i < skeletonArr[j].length; i++) {
+                skeletonArr[j][i] = temp.getSubimage(i * SKELETON_WIDTH_DEFAULT, j * SKELETON_HEIGHT_DEFAULT,
+                        SKELETON_WIDTH_DEFAULT, SKELETON_HEIGHT_DEFAULT);
             }
         }
     }
+
     public void resetAllEnemies() {
-        for(Skeleton c: skeletons)
+        for (Skeleton c : skeletons)
             c.resetEnemy();
     }
 

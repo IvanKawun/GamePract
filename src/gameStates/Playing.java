@@ -7,6 +7,7 @@ import entities.Player;
 import jdk.jshell.execution.LoaderDelegate;
 import levels.LevelManager;
 import main.Game;
+import objects.ObjectManager;
 import utilz.LoadSave;
 import static utilz.Constants.Environment.*;
 import java.awt.*;
@@ -19,6 +20,7 @@ import java.util.Random;
 public class Playing extends State implements Statemethods{
     private LevelManager levelManager;
     private EnemyManager enemyManager;
+    private ObjectManager objectManager;
     private Player player;
     private PauseOverlay pauseOverlay;
     private GameOverOverlay gameOverOverlay;
@@ -59,6 +61,7 @@ public class Playing extends State implements Statemethods{
 
     private void loadStartLevel() {
         enemyManager.loadEnemies(levelManager.getCurrentLevel());
+        objectManager.loadObjects(levelManager.getCurrentLevel());
     }
 
     private void calcLvlOffset() {
@@ -68,6 +71,8 @@ public class Playing extends State implements Statemethods{
     private void initClasses() {
         levelManager = new LevelManager((game));
         enemyManager = new EnemyManager(this);
+        objectManager = new ObjectManager(this);
+
         player = new Player(200, 200, (int) (64 * Game.SCALE), (int) (64 * Game.SCALE),this);
         player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
         player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
@@ -85,6 +90,7 @@ public class Playing extends State implements Statemethods{
         }
         else if (!gameOver){
             levelManager.update();
+            objectManager.update();
             player.update();
             enemyManager.update(levelManager.getCurrentLevel().getLvlData(),player);
             checkCloseToBorder();
@@ -130,6 +136,7 @@ public class Playing extends State implements Statemethods{
         levelManager.draw(g, xLvlOffset);
         player.render(g, xLvlOffset );
         enemyManager.draw(g,xLvlOffset);
+        objectManager.draw(g,xLvlOffset);
         if(paused) {
             g.setColor(new Color(0,0,0,150));
             g.fillRect(0,0,Game.GAME_WIDTH, Game.GAME_HEIGHT);
@@ -277,5 +284,12 @@ public class Playing extends State implements Statemethods{
         this.levelCompleted = levelCompleted;
         if(levelCompleted)
             game.getAudioPlayer().lvlCompleted();
+    }
+
+    public void checkSpikesTouched(Player player) {
+        objectManager.checkSpikesTouched(player);
+    }
+    public ObjectManager getObjectManager(){
+        return objectManager;
     }
 }

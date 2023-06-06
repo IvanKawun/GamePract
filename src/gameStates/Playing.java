@@ -22,6 +22,7 @@ public class Playing extends State implements Statemethods{
     private GameOverOverlay gameOverOverlay;
     private boolean paused = false;
     private int xLvlOffset;
+    public int ogogo;
     private int leftBorder = (int)(0.2 * Game.GAME_WIDTH);
     private int rightBorder = (int)(0.8 * Game.GAME_WIDTH);
     private int lvlTilesWide = LoadSave.GetLevelData()[0].length;

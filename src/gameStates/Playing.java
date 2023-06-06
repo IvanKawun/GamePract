@@ -9,6 +9,8 @@ import levels.LevelManager;
 import main.Game;
 import objects.ObjectManager;
 import utilz.LoadSave;
+
+import static utilz.Constants.EnemyConstants.FINISHED;
 import static utilz.Constants.Environment.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -178,6 +180,12 @@ public class Playing extends State implements Statemethods{
     public void checkEnemyHit(Rectangle2D.Float attackBox){
         enemyManager.checkEnemyHit(attackBox);
     }
+    public boolean checkPrincessTouched(Rectangle2D.Float hitbox){
+        if(enemyManager.checkPrincessTouched(hitbox)) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -250,6 +258,16 @@ public class Playing extends State implements Statemethods{
                 case KeyEvent.VK_ESCAPE:
                     paused = !paused;
                     break;
+                case KeyEvent.VK_O:
+                    if(levelManager.getLvlIndex() == 2) {
+                    if (checkPrincessTouched(player.getHitbox())) {
+                        System.out.println(FINISHED);
+                        FINISHED = true;
+                    } else {
+                        FINISHED = false;
+                        System.out.println(FINISHED);
+                    }
+                }
             }
         }
     }

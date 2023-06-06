@@ -1,5 +1,6 @@
 package utilz;
 
+import entities.Princess;
 import entities.Skeleton;
 import main.Game;
 import objects.GameContainer;
@@ -11,6 +12,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import static utilz.Constants.EnemyConstants.PRINCESS;
 import static utilz.Constants.EnemyConstants.SKELETON;
 import static utilz.Constants.ObjectConstants.*;
 
@@ -127,6 +129,19 @@ public class HelpMethods {
                 int value = color.getGreen();
                 if(value == SKELETON)
                     list.add(new Skeleton(i* Game.TILES_SIZE, j*Game.TILES_SIZE));
+            }
+        }
+        return list;
+    }
+    public static ArrayList<Princess> GetPrincess(BufferedImage img){
+        ArrayList<Princess> list = new ArrayList<>();
+
+        for(int j = 0; j<img.getHeight(); j++){
+            for(int i = 0; i<img.getWidth(); i++){
+                Color color = new Color(img.getRGB(i,j));
+                int value = color.getGreen();
+                if(value == PRINCESS)
+                    list.add(new Princess(i* Game.TILES_SIZE, j*Game.TILES_SIZE));
             }
         }
         return list;

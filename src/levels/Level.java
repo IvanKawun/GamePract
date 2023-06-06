@@ -1,5 +1,6 @@
 package levels;
 
+import entities.Princess;
 import entities.Skeleton;
 import main.Game;
 import objects.GameContainer;
@@ -16,6 +17,7 @@ import static utilz.HelpMethods.*;
 public class Level {
     private BufferedImage img;
     private ArrayList<Skeleton> skeletons;
+    private ArrayList<Princess> princesses;
     private int lvlTilesWide;
     private int maxTilesOffset;
     private ArrayList<Potion> potions;
@@ -28,6 +30,7 @@ public class Level {
         this.img = img;
         createLevelData();
         createEnemies();
+        createPrincess();
         createPotions();
         createContainers();
         createSpikes();
@@ -58,6 +61,9 @@ public class Level {
     private void createEnemies() {
         skeletons = GetSkeletons(img);
     }
+    private void createPrincess(){
+        princesses = GetPrincess(img);
+    }
 
     private void createLevelData() {
         lvlData = GetLevelData(img);
@@ -76,6 +82,7 @@ public class Level {
     public ArrayList<Skeleton> getSkeletons(){
         return skeletons;
     }
+    public ArrayList<Princess> getPrincesses(){return princesses;}
     public Point getPlayerSpawn(){
         return playerSpawn;
     }

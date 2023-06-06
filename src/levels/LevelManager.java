@@ -74,4 +74,5 @@ public class LevelManager {
         return levels.size();
     }
     public int getLvlIndex(){return lvlIndex;}
+
 }

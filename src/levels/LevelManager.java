@@ -29,6 +29,9 @@ public class LevelManager {
         else if(lvlIndex == 1){
             importOutsideSprites(LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS_2));
         }
+        else if(lvlIndex == 2){
+            importOutsideSprites(LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS_3));
+        }
         if(lvlIndex >= levels.size()){
             lvlIndex = 0;
             System.out.println("No more levels! Game Completed");

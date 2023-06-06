@@ -130,7 +130,7 @@ public class Playing extends State implements Statemethods{
             drawClouds(g);
         }
         else if(levelManager.getLvlIndex() == 2){
-            backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG2);
+            backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG3);
             g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
         }
         levelManager.draw(g, xLvlOffset);
@@ -162,7 +162,15 @@ public class Playing extends State implements Statemethods{
         levelCompleted = false;
         player.resetAll();
         enemyManager.resetAllEnemies();
-        levelManager.importOutsideSprites(LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS));
+        if(levelManager.getLvlIndex() == 0) {
+            levelManager.importOutsideSprites(LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS));
+        }
+        if(levelManager.getLvlIndex() == 1) {
+            levelManager.importOutsideSprites(LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS_2));
+        }
+        if(levelManager.getLvlIndex() == 2) {
+            levelManager.importOutsideSprites(LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS_3));
+        }
     }
     public void setGameOver(boolean gameOver){
         this.gameOver = gameOver;

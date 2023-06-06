@@ -6,6 +6,7 @@ public class Constants {
     public static  final float GRAVITY = 0.04f * Game.SCALE;
     public static final int ANI_SPEED = 15;
 
+
     public static class ObjectConstants {
 
         public static final int RED_POTION = 0;
@@ -43,7 +44,9 @@ public class Constants {
         }
     }
     public static class EnemyConstants{
+        public static boolean FINISHED = false;
         public final static int SKELETON = 0;
+        public final static int PRINCESS = 1;
 
         public final static int IDLE = 0;
         public final static int RUNNING = 1;

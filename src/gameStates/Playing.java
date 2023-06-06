@@ -4,6 +4,7 @@ import UI.LevelCompletedOverlay;
 import UI.PauseOverlay;
 import entities.EnemyManager;
 import entities.Player;
+import jdk.jshell.execution.LoaderDelegate;
 import levels.LevelManager;
 import main.Game;
 import utilz.LoadSave;
@@ -52,9 +53,6 @@ public class Playing extends State implements Statemethods{
     }
     public void loadNextLevel(){
         resetAll();
-        if(levelManager.getLvlIndex() == 2){
-            this.backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG2);
-        }
         levelManager.loadNextLevel();
         player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
     }
@@ -115,8 +113,20 @@ public class Playing extends State implements Statemethods{
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
-        drawClouds(g);
+        if(levelManager.getLvlIndex() == 0) {
+            backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG);
+            g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+            drawClouds(g);
+        }
+        else if(levelManager.getLvlIndex() == 1){
+            backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG2);
+            g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+            drawClouds(g);
+        }
+        else if(levelManager.getLvlIndex() == 2){
+            backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG2);
+            g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+        }
         levelManager.draw(g, xLvlOffset);
         player.render(g, xLvlOffset );
         enemyManager.draw(g,xLvlOffset);
@@ -145,6 +155,7 @@ public class Playing extends State implements Statemethods{
         levelCompleted = false;
         player.resetAll();
         enemyManager.resetAllEnemies();
+        levelManager.importOutsideSprites(LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS));
     }
     public void setGameOver(boolean gameOver){
         this.gameOver = gameOver;

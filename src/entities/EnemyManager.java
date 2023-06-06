@@ -33,9 +33,15 @@ public class EnemyManager {
                 isAnyActive= true;
             }
         if(!isAnyActive)
-            playing.setLevelCompleted(true);
+            if(playing.getLevelManager().getLvlIndex() == 0 ||playing.getLevelManager().getLvlIndex() == 1 ) {
+                playing.setLevelCompleted(true);
+            }
+            else if(playing.getLevelManager().getLvlIndex() == 2){
+                if(finished)
+                    playing.setLevelCompleted(true);
+            }
     }
-
+    public boolean finished;
     public void draw(Graphics g, int xLvlOffset) {
         drawSkeletons(g, xLvlOffset);
     }

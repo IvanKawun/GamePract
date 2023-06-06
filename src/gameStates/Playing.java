@@ -63,9 +63,10 @@ public class Playing extends State implements Statemethods{
             player.update();
             enemyManager.update(levelManager.getCurrentLevel().getLvlData(),player);
             checkCloseToBorder();
-        }else{
+        }else if(paused){
             pauseOverlay.update();
-        }
+        } else if(gameOver)
+            gameOverOverlay.update();
     }
 
     private void checkCloseToBorder() {
@@ -140,7 +141,8 @@ public class Playing extends State implements Statemethods{
         if(!gameOver) {
             if (paused)
                 pauseOverlay.mousePressed(e);
-        }
+        }else
+            gameOverOverlay.mousePressed(e);
     }
 
     @Override
@@ -148,7 +150,8 @@ public class Playing extends State implements Statemethods{
         if(!gameOver) {
             if (paused)
                 pauseOverlay.mouseReleased(e);
-        }
+        }else
+            gameOverOverlay.mouseReleased(e);
     }
 
     @Override
@@ -156,7 +159,8 @@ public class Playing extends State implements Statemethods{
         if(!gameOver) {
             if (paused)
                 pauseOverlay.mouseMoved(e);
-        }
+        }else
+            gameOverOverlay.mouseMoved(e);
     }
 
     @Override

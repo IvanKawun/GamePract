@@ -1,5 +1,6 @@
 package entities;
 
+import audio.AudioPlayer;
 import gameStates.Playing;
 import main.Game;
 import utilz.LoadSave;
@@ -98,6 +99,7 @@ public class Player extends Entity {
             return;
         attackChecked = true;
         playing.checkEnemyHit(attackBox);
+        playing.getGame().getAudioPlayer().playAttackSound();
     }
 
     private void updateAttackBox() {
@@ -230,6 +232,7 @@ public class Player extends Entity {
     private void jump() {
         if(inAir)
             return;
+        playing.getGame().getAudioPlayer().playEffect(AudioPlayer.JUMP);
         inAir = true;
         airSpeed = jumpSpeed;
     }

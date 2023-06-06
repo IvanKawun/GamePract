@@ -70,8 +70,8 @@ public class EnemyManager {
 
                 g.drawImage( princess,
                         (int) c.getHitbox().x - xLvlOffset - 60,
-                        (int) c.getHitbox().y - SKELETON_DRAWOFFSET_Y+25,
-                        SKELETON_WIDTH, SKELETON_HEIGHT, null);
+                        (int) c.getHitbox().y - SKELETON_DRAWOFFSET_Y+22,
+                        -SKELETON_WIDTH, SKELETON_HEIGHT, null);
                 //c.drawHitbox(g,xLvlOffset);
                 //c.drawAttackBox(g, xLvlOffset);
             }

@@ -29,6 +29,8 @@ public class LoadSave {
     public static final String OPTIONS_MENU = "options_background.png";
     public static final String SKELETON_SPRITES = "skeleton_sprites.png";
     public static final String STATUS_BAR = "health_mana_bar.png";
+    public static final String DEATH_SCREEN = "death_screen.png";
+
 
 
     public static BufferedImage GetSpriteAtlas(String fileName){

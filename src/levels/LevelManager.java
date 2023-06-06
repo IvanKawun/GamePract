@@ -23,14 +23,12 @@ public class LevelManager {
     }
     public void loadNextLevel(){
         lvlIndex++;
-        /*
         if(lvlIndex == 0){
             importOutsideSprites(LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS));
         }
-        if(lvlIndex == 1){
+        else if(lvlIndex == 1){
             importOutsideSprites(LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS_2));
         }
-        */
         if(lvlIndex >= levels.size()){
             lvlIndex = 0;
             System.out.println("No more levels! Game Completed");
@@ -48,7 +46,7 @@ public class LevelManager {
             levels.add(new Level(img));
     }
 
-    private void importOutsideSprites(BufferedImage img) {
+    public  void importOutsideSprites(BufferedImage img) {
         levelSprite = new BufferedImage[48];
         for(int j = 0; j<4; j++){
             for(int i =0; i<12; i++){

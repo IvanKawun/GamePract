@@ -170,8 +170,6 @@ public class Player extends Entity {
                 state = FALLING;
 
         }
-
-
         if (attacking) {
             state = ATTACK;
             if(startAni != ATTACK){
